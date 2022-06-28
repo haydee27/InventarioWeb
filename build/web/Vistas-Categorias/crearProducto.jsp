@@ -15,6 +15,7 @@
          </script>
     </head>
     <body>
+        
          <%@include file = "WEB-INF/Vistas-Parciales/css-js.jspf" %>
          
         <h3>Agregar Registro de Producto</h3>
