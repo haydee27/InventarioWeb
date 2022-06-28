@@ -34,6 +34,7 @@ public class ProductoDAOImplementar implements ProductoDAO{
             producto.setPrecio(resultadoSQL.getFloat("precio"));
             producto.setUnidadMedida(resultadoSQL.getNString("unidadMedida"));
             producto.setEstado(resultadoSQL.getInt("estado"));
+            //producto.setCategoria(resultadoSQL.getc("categoria")); 
             lista.add(producto);
         }
     }catch(Exception ex){
