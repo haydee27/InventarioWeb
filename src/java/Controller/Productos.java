@@ -6,7 +6,7 @@ import Model.Producto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
+import javax.servlet.ServletException; 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,49 +15,39 @@ import javax.servlet.http.HttpSession;
 public class Productos extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Productos</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Productos at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.listaProductos(request, response);
-       String parametro = request.getParameter("opcion");
+        //this.listaProductos(request, response);
+       
        String estado = request.getParameter("opcion");
-        String id_producto = request.getParameter("id");
+        String id_pro = request.getParameter("id");
         String nom_producto = request.getParameter("nombre");
-       
-       if(parametro.equals("crear")){
-           System.out.println("Crear Producto");
-           String pagina = "/Vistas-Categorias/crearProducto.jsp";
-           RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(pagina);
-           dispatcher.forward(request, response);
-       }else{
+        String stock = request.getParameter("stock");
+        String precio = request.getParameter("precio");
+        String unidad = request.getParameter("unidad");
+        String estado_pro = request.getParameter("estado");
+        String Categoria = request.getParameter("categoria");
+        //System.out.println(parametro + "CREAR") ;
+       if(estado.equals("listar")){
            this.listaProductos(request, response);
+       }else if(estado.equals("crear")){
+           //System.out.println("Crear Producto nuevos");
+           String pagina = "/Vistas-Categorias/crearProducto.jsp";
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(pagina);
+            dispatcher.forward(request, response);
+            response.sendRedirect(pagina);
+       }else if(estado.equals("eliminar")){
+           System.out.println("Baja de Productos");
+           RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Vistas-Productos/bajaProducto.jsp?id="+id_pro+"&&nombre="+nom_producto+"&&stock"+stock+ "&&precio"+ precio+ "&&unidad" + unidad +"&&estado" + estado_pro + "&&categoria" + Categoria);
+           dispatcher.forward(request, response);
+           //this.listaProductos(request, response);
+       }else{
        }
-       
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -69,6 +59,7 @@ public class Productos extends HttpServlet {
         producto.setPrecio(Integer.parseInt(request.getParameter("txtprecio")));
         producto.setUnidadMedida(request.getParameter("txtunidaMedida"));
         producto.setEstado(Integer.parseInt(request.getParameter("txtestado")));
+        producto.setCategoria(Integer.parseInt(request.getParameter("txtcategoria")));
         
         ProductoDAO guardaProducto = new ProductoDAOImplementar();
         guardaProducto.guardarPro(producto);
@@ -76,11 +67,7 @@ public class Productos extends HttpServlet {
         
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+   
     @Override
     public String getServletInfo() {
         return "Short description";
@@ -89,9 +76,7 @@ public class Productos extends HttpServlet {
     protected void listaProductos(HttpServletRequest request, HttpServletResponse response)
            throws ServletException, IOException {
         response.setContentType("text/html;charset-UTF-8");
-        
         ProductoDAO producto = new ProductoDAOImplementar();
-        
         HttpSession session = request.getSession(true);
         session.setAttribute("lista", producto.Listar());
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Vistas-Categorias/listarProducto.jsp");

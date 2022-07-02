@@ -4,22 +4,20 @@ package Model;
 public class Producto {
    private int id_producto;
    private String nom_producto;
-   private int categoria_id;
    private float stock;
    private float precio;
    private String unidadMedida;
    private int estado;
-   private Categoria categoria; // Objeto categoria
+   private int categoria; // Objeto categoria
 
     public Producto() {
         this.id_producto = 0;
-        this.categoria = new Categoria(); //Inicializae el modelo categoria
+         //Inicializae el modelo categoria
     }
 
-    public Producto(int id_producto, String nom_producto, int categoria_id, float stock, float precio, String unidadMedida, int estado, Categoria categoria) {
+    public Producto(int id_producto, String nom_producto, float stock, float precio, String unidadMedida, int estado, int categoria) {
         this.id_producto = id_producto;
         this.nom_producto = nom_producto;
-        this.categoria_id = categoria_id;
         this.stock = stock;
         this.precio = precio;
         this.unidadMedida = unidadMedida;
@@ -43,13 +41,6 @@ public class Producto {
         this.nom_producto = nom_producto;
     }
 
-    public int getCategoria_id() {
-        return categoria_id;
-    }
-
-    public void setCategoria_id(int categoria_id) {
-        this.categoria_id = categoria_id;
-    }
 
     public float getStock() {
         return stock;
@@ -83,11 +74,11 @@ public class Producto {
         this.estado = estado;
     }
 
-    public Categoria getCategoria() {
+    public int getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(int categoria) {
         this.categoria = categoria;
     }
    
