@@ -55,8 +55,8 @@ public class Productos extends HttpServlet {
         
         producto.setId_producto(Integer.parseInt(request.getParameter("id_producto")));
         producto.setNom_producto(request.getParameter("txtNomProducto"));
-        producto.setStock(Integer.parseInt(request.getParameter("txtstock")));
-        producto.setPrecio(Integer.parseInt(request.getParameter("txtprecio")));
+        producto.setStock(Float.parseFloat(request.getParameter("txtstock")));
+        producto.setPrecio(Float.parseFloat(request.getParameter("txtprecio")));
         producto.setUnidadMedida(request.getParameter("txtunidaMedida"));
         producto.setEstado(Integer.parseInt(request.getParameter("txtestado")));
         producto.setCategoria(Integer.parseInt(request.getParameter("txtcategoria")));

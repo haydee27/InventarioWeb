@@ -38,6 +38,9 @@ public class ProductoDAOImplementar implements ProductoDAO{
             producto.setEstado(resultadoSQL.getInt("estado_producto"));
             producto.setCategoria(resultadoSQL.getInt("categoria"));
             
+            producto.setUnidadMedida(resultadoSQL.getNString("unidadMedida"));
+            producto.setEstado(resultadoSQL.getInt("estado"));
+            //producto.setCategoria(resultadoSQL.getc("categoria")); 
             lista.add(producto);
         }
     }catch(Exception ex){
